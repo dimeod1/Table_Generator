@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html ng-app="nameApp">
+<head>
+	
+	<title>Pricing Generator</title>
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+     <link rel="shortcut icon" href="img/favi.png" type="image/x-icon">
+	 <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
+	 <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+	 <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.2.min.js"></script>
+	 <script src="//code.jquery.com/jquery-2.2.2.min.js"></script>
+	 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	 <script src="jscolor.js"></script>
+	 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.14/angular.min.js"></script>
+	 <link rel="stylesheet" href="style.css" />
+     <script src="dist/clipboard.min.js"></script>
+     <script src="js/pricegen.js"></script>
+	 <link rel="stylesheet" href="css/modalfour.css" />	
+	 <link rel="stylesheet" href="css/modalthree.css" />
+
+
+</head>
+<body >
+<header>
+		<nav> <a href="http://www.facebook.com/aragondesigngroup" class="social sc_fb" target="_blank" title="Like us on Facebook"></a></nav>
+		<nav><a href="http://pinterest.com/aragondesigngroup/" class="social sc_pn" target="_blank" title="Join us on Pinterest"></a></nav>
+		<nav><a href="http://instagram.com/aragondesigngroup/" class="social sc_ig" target="_blank" title="Join us on Instagram"></a></nav>
+		<!--<nav><a href="http://googleplus.com/aragondesigngroup/" target="_blank" title="Join us on Google Plus"><img class="social"  src="img/gp.png" /></a></nav><nav>  <a href="http://twitter.com/aragondesigngroup" target="_blank" title="Follow us on Twitter"><img class="social"  src="img/tw.png" /></a></nav>-->
+</header>
+<div class="hdline"></div>
+<div class="wrapper">
+<div class="title">Pricing <span>Table</span> Generator</div>
+
+<div class="buttons">
+<div class="bx-btns">
+<h5>SELECT A BOX TO EDIT</h5>					
+<button class="btn btn-primary btn-lg" value="mn1" >Box 1</button>
+<button class="btn btn-primary btn-lg" value="mn2">Box 2</button>	
+<button class="btn btn-primary btn-lg" value="mn3">Box 3</button>
+<button class="btn btn-primary btn-lg" value="mn4">Box 4</button>		
+</div>
+<button class="btn-primary btn-lg" id="resbtn" value=""></button>
+<button class="btn-primary btn-lg"  id="cpybtn" data-clipboard-action="copy" data-clipboard-target=".res" ></button>
+<button class="btn-primary btn-lg" id="sample_btn"></button>		
+</div>
+
+<div class="price_tbl" id="price_tbl">
+			<div class="price_bx" ng-controller="firstController">	
+			<div class="legend_box" id="mn1">
+			<div class="legend_mn">
+				<div class="mn-input"><span>Heading:</span><input ng-model="heading" type="text" placeholder="{{headingph1}}"/></div>
+					<div class="mn-inputclr"><span>Color:</span><input ng-model="color" type="text" id="chosen-value"  />
+					<button id="clr_btn" class="clr_btn jscolor {valueElement:'chosen-value', onFineChange:'setTextColor(this)'}" >PICK A COLOR</button></div>
+				<div class="mn-input">	<span>Pricing:</span><input ng-model="price" type="text"/></div>
+				<div class="mn-input">	<span>Info:</span><input ng-model="info" type="text"/></div>
+				<div class="mn-inputfr">
+				<form class="li_frm" ng-submit="addName()">
+				<div class="in_li_frm1">
+					 <span>Details:</span><input type="text" ng-model="enteredName">
+					 </div>
+					 <div class="in_li_frm">
+					<a class="remove_dt" href="" ng-click="removeName(name)"></a><button class="add_dt" id="add_dt" type="submit" value="add"></button></div>
+				</form></div>
+				</div></div>
+				<div class="box" id="b1" >
+					 <div class="inner_box" id="ib1">
+						<div class="heading" id="h1">
+						<span>{{heading}}</span>
+						</div>
+						<div class="pricing1" id="p1">
+							<img class="crcl"  src="circ.png" />
+							<p class="price">{{price}}</p>
+							<div class="info1" id="i1">
+							<span>{{info}}</span>
+							</div>
+						</div>
+						<div class="boxes" id="x1">
+						<ul>
+						<li ng-repeat="name in names"> {{name}} </li>
+						</ul>
+						</div>
+					   </div>
+				</div>
+			</div>
+			<div class="price_bx" ng-controller="secondController">	
+				<div class="legend_box" id="mn2" >
+				<div class="legend_mn"  >
+					<div class="mn-input"><span>Heading:</span><input ng-model="heading" type="text" placeholder="{{headingph1}}"/></div>
+					<div class="mn-inputclr"><span>Color:</span><input ng-model="color" type="text" id="colorval_2"  />
+					<button id="clr_btn2" class="clr_btn jscolor {valueElement:'colorval_2', onFineChange:'setTextColor(this)'}" >PICK A COLOR</button></div>
+				<div class="mn-input">	<span>Pricing:</span><input ng-model="price" type="text"/></div>
+				<div class="mn-input">	<span>Info:</span><input ng-model="info" type="text"/></div>
+				<div class="mn-inputfr">
+				<form class="li_frm" ng-submit="addName()">
+				<div class="in_li_frm1">
+					 <span>Details:</span><input type="text" ng-model="enteredName">
+					 </div>
+					 <div class="in_li_frm">
+					<a class="remove_dt" href="" ng-click="removeName(name)"></a><button class="add_dt" id="add_dt" type="submit" value="add"></button></div>
+				</form></div>
+				</div></div>
+					<div class="box" id="b2" >
+					<div class="inner_box" id="ib2">
+						<div class="heading" id="h2">
+						<span>{{heading}}</span>
+						</div>
+						<div class="pricing1" id="p2">
+						<img class="crcl"  src="circ.png" />
+						<p class="price">{{price}}</p>
+						
+						<div class="info1" id="i2">
+						<span>{{info}}</span>
+						</div></div>
+						<div class="boxes" id="x2">
+						<ul>
+						<li ng-repeat="name in names"> {{name}} </li>
+						</ul>
+						</div>
+					   </div>
+					</div>
+				</div>
+				
+				<div class="price_bx" ng-controller="thirdController">	
+							<div class="legend_box" id="mn3">
+					<div class="legend_mn"   >
+						<div class="mn-input"><span>Heading:</span><input ng-model="heading" type="text" placeholder="{{headingph1}}"/></div>
+					<div class="mn-inputclr"><span>Color:</span><input ng-model="color" type="text" id="colorval_3"  />
+					<button id="clr_btn3" class="clr_btn jscolor {valueElement:'colorval_3', onFineChange:'setTextColor(this)'}" >PICK A COLOR</button></div>
+				<div class="mn-input">	<span>Pricing:</span><input ng-model="price" type="text"/></div>
+				<div class="mn-input">	<span>Info:</span><input ng-model="info" type="text"/></div>
+				<div class="mn-inputfr">
+				<form class="li_frm" ng-submit="addName()">
+				<div class="in_li_frm1">
+					 <span>Details:</span><input type="text" ng-model="enteredName">
+					 </div>
+					 <div class="in_li_frm">
+					<a class="remove_dt" href="" ng-click="removeName(name)"></a><button class="add_dt" id="add_dt" type="submit" value="add"></button></div>
+				</form></div>
+				</div></div>
+					<div class="box" id="b3" >
+					 <div class="inner_box" id="ib3">
+						<div class="heading" id="h3">
+						<span>{{heading}}</span>
+						</div>
+						<div class="pricing1" id="p3">
+						<img class="crcl"  src="circ.png" />
+						<p class="price">{{price}}</p>
+						
+						<div class="info1" id="i3">
+						<span>{{info}}</span>
+						</div></div>
+						<div class="boxes" id="x3">
+						<ul>
+						<li ng-repeat="name in names"> {{name}} </li>
+						</ul>
+						</div>
+					   </div>
+					</div>
+				</div>
+				
+				<div class="price_bx" ng-controller="fourthController">	
+					<div class="legend_box" id="mn4">
+					<div class="legend_mn"   >
+						<div class="mn-input"><span>Heading:</span><input ng-model="heading" type="text" placeholder="{{headingph1}}"/></div>
+					<div class="mn-inputclr"><span>Color:</span><input ng-model="color" type="text" id="colorval_4"  />
+					<button id="clr_btn4" class="clr_btn jscolor {valueElement:'colorval_4', onFineChange:'setTextColor(this)'}" >PICK A COLOR</button></div>
+				<div class="mn-input">	<span>Pricing:</span><input ng-model="price" type="text"/></div>
+				<div class="mn-input">	<span>Info:</span><input ng-model="info" type="text"/></div>
+				<div class="mn-inputfr">
+				<form class="li_frm" ng-submit="addName()">
+				<div class="in_li_frm1">
+					 <span>Details:</span><input type="text" ng-model="enteredName">
+					 </div>
+					 <div class="in_li_frm">
+					<a class="remove_dt" href="" ng-click="removeName(name)"></a><button class="add_dt" id="add_dt" type="submit" value="add"></button></div>
+				</form></div>
+				</div></div>
+					<div class="box" id="b4" >
+					<div class="inner_box" id="ib4">
+						<div class="heading" id="h4">
+						<span>{{heading}}</span>
+						</div>
+						<div class="pricing1" id="p4">
+						<img class="crcl"  src="circ.png" />
+						<p class="price">{{price}}</p>
+						
+						<div class="info1" id="i4">
+						<span>{{info}}</span>
+						</div></div>
+						<div class="boxes" id="x4">
+						<ul>
+						<li ng-repeat="name in names"> {{name}} </li>
+						</ul>
+						</div>
+					   </div>
+					</div>
+			</div>
+			
+		
+				
+	</div>
+	
+	
+	
+	
+	</div>
+
+
+<div class="dlimage" id="img_dl">
+<span>Click on the images to the right to Download for use</span>
+<img class="dl_img" id="check_img" src="checkmark.png" />
+<img  class="dl_img" id="circ_img" src="circ.png" />
+</div>
+
+
+<div class="css-div" id="css-div">
+<h2>The CSS:</h2>
+</div>
+
+<div class="main_res" id="results5">
+<pre>
+<code class="language-css" >
+.inner_box{width:250px;height:auto;padding:0px;margin:10px;float:left;-webkit-box-shadow: 0 1px 1px 1px #eee;-moz-box-shadow: 0 1px 1px 1px #eee;box-shadow: 0 1px 1px 1px #eee;}	
+ul{list-style:none;padding:5px;color:#222;}
+ul li {color:#222;
+    background-image: url("checkmark.png");
+	background-size: 15px 15px;
+    background-repeat: no-repeat;
+    line-height: 18px;
+    padding:0px 5px 10px 35px;
+	}
+.boxes img{width:70px;height:27px;float:right;}
+.heading {width:100%;height:35px;background-color:#283B4D;font-size:20px;text-align:center;padding-top:10px;margin-top:0px;border-left:solid 1px #e0e0e0;border-right:solid 1px #e0e0e0;}
+.heading span{height:100%;color:#fff;font-family: 'Oxygen', sans-serif;text-transform:uppercase;padding-top:10px;}
+.pricing{width:100%;height:110px;font-size:20px;text-align:center;overflow:hidden;position:relative;border-left:solid 1px #e0e0e0;border-right:solid 1px #e0e0e0;}
+.pricing1{width:100%;height:155px;font-size:20px;text-align:center;overflow:hidden;position:relative;border-left:solid 1px #e0e0e0;border-right:solid 1px #e0e0e0;}
+.pricing p{color:#fff;font-family: 'Oxygen', sans-serif;text-transform:uppercase;}
+.crcl{position:absolute; left:85px; top:15px;width:80px;height:80px;}
+.price{margin-top:43px;color:#fff;font-family: 'Oxygen', sans-serif;}
+.info1{width:100%;height:32px;text-align:center;position:absolute;bottom:0px;padding-top:8px;}
+.info1 span{color:#fff;font-family: 'Oxygen', sans-serif;font-size:13px;text-align:center;padding-top:3px;margin-top:0px;text-transform:uppercase;}
+.boxes{width:100%;height:auto;background-color:#fff;color:#a0a0a0;font-size:15px;padding-top:2px;border:solid 1px #e0e0e0;text-align:left;}
+.boxes li{color:#222;font-family: 'Oxygen', sans-serif;}
+</code>
+	</pre>
+</div>
+
+
+<div class="res" id="results6">
+
+<div class="css-div" id="c-div">
+<h2>Altered CSS:</h2>
+</div>
+</div>
+
+
+<div class="res" id="results7">
+<div class="css-div" id="h-div">
+<h2>The HTML:</h2>
+</div>
+</div>
+
+</div>
+
+
+<div  id="offscrn"></div>
+
+<!-- modal -->
+
+<div class="modal" id="infoModal" >
+  <div class="info-modal-dialog">
+    <div class="info-modal-content">
+      <div class="info-modal-body" >
+     
+      </div>
+	  <a href="" class="btn-primary btn-lg cv_btn" id="cv_btn" ></a>
+		<div id="imagedl"></div>
+		<a href="" class="btn-primary btn-lg clsebtn" id="clsebtn" data-dismiss="modal" aria-hidden="true" ></a>
+    </div>
+  </div>
+</div>
+
+<!-- modal -->
+
+
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="span4">
+        <img class="brand" src="img/adg-logo.png" alt="Aragon Design" height="40" width="140">
+       Templates, Design, Implementation, Value
+      </div>
+      <div class="span2">
+        <div id="nav_menu-2" class="widget widget_nav_menu"><h5 class="footer-widget-title">Company</h5><div class="menu-footer-menu-1-container"><ul id="menu-footer-menu-1" class="menu"><li id="menu-item-6520" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6520"><a href="http://aragondesigngroup.com/#contactus" target="blank">Contact Us</a></li>
+<li id="menu-item-49" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-49"><a href="http://aragondesigngroup.com/#contactus">Our Team</a></li>
+
+</ul></div></div>      </div>
+      <div class="span2">
+        <div id="nav_menu-4" class="widget widget_nav_menu"><h5 class="footer-widget-title">Trade &amp; Media</h5><div class="menu-footer-menu-3-container"><ul id="menu-footer-menu-3" class="menu">
+		
+<li id="menu-item-11270" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11270"><a href="http://aragondesigngroup.com/#contactus">Hire Us</a></li>
+
+<li id="menu-item-11269" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11269"><a href="http://aragondesigngroup.com/#contactus">Partnerships</a></li>
+
+
+</ul></div></div>      </div>
+      <div class="span2">
+        <div id="nav_menu-3" class="widget widget_nav_menu"><h5 class="footer-widget-title">Legal</h5><div class="menu-footer-menu-2-container"><ul id="menu-footer-menu-2" class="menu">
+		
+<li id="menu-item-890" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-890"><a href="http://aragondesigngroup.com/#contactus">Privacy Policy</a></li>
+<li id="menu-item-889" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-889"><a href="http://aragondesigngroup.com/#contactus">Terms of Use</a></li>
+</ul></div></div>      </div>
+      <div class="span2">
+        <p class="pull-right"><br><a href="#">Back to top</a></p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- Sub-Footer
+================================================== -->
+<div id="sub-footer">
+  <div class="container">
+    <div class="row">
+      <div class="span12">
+        <a rel="license" href="http://aragondesigngroup.com/">Aragon Design</a>. &nbsp;&nbsp;&nbsp; Powered by Angular, creativity, and Red Bull.
+        <span class="pull-right">
+         <!-- <i class="icon-phone"></i>  <a href="http://pinterest.com/aragondesigngroup/" target="_blank" title="Join us on Pinterest"><i class="icon-pinterest"></i></a>
+          <a href="http://feeds.feedburner.com/aragondesigngroup" target="_blank" title="Subscribe via RSS"><i class="icon-rss"></i></a>-->
+          <a href="mailto:%20info@aragondesigngroup.com" title="Email us"><i class="icon-envelope"></i> info@aragondesigngroup.com</a>
+          <a href="http://www.facebook.com/aragondesigngroup" target="_blank" title="Like us on Facebook"><i class="icon-facebook"></i></a>
+          <a href="http://instagram.com/aragondesigngroup" target="_blank" title="Follow us on Instagram"><i class="icon-instagram"></i></a>
+         
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+	<!--<script src="js/image.js" type="text/javascript" charset="utf-8"></script>-->
+    <script type="text/javascript" src="js/html2canvas.js"></script>
+</body>
+</html>
